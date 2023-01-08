@@ -6,6 +6,7 @@ pedido = input ("Pretende restaurar dados de uma utilização anterior (sim/não
 pedido = pedido.lower()
 while pedido != "sim" and pedido != "não":
     pedido = input ("Resposta inválida. Pretende restaurar dados de uma utilização anterior (sim/não)?\n")
+    pedido = pedido.lower()
 
 if pedido == "sim":
     fich = input ("Qual o nome do ficheiro que pretende abrir (com extensão)?\n")
