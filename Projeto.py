@@ -30,6 +30,7 @@ while True:
             escolha_viatura = input ("Opção inválida. Escolha uma opção: ")
             escolha_viatura = escolha_viatura.lower()
 
+        # Adicionar uma nova viatura
         if escolha_viatura == "a":
             while escolha_viatura == "a":
                 print ("")
@@ -41,15 +42,17 @@ while True:
                 v = {"matricula":matr , "marca":marca , "modelo":mod , "tipo de veiculo":tipo_veic}
                 veiculos.append(v)
                 ## veiculos.append({"matricula":matr , "marca":marca , "modelo":mod , "tipo de veiculo":tipo_veic})
+                print (veiculos)
 
                 adicionar_outra = input ("Pretende adicionar outra viatura (sim/não)? ")
                 adicionar_outra = adicionar_outra.lower()
                 while adicionar_outra != "sim" and adicionar_outra != "não":
-                    adicionar_outra = input ("Opção inválida. Digite sim ou não? ")
+                    adicionar_outra = input ("Opção inválida. Digite sim ou não. ")
                     adicionar_outra = adicionar_outra.lower()
                 if adicionar_outra == "não":
                     escolha_viatura = ""
         
+        # Consultar viaturas
         if escolha_viatura == "c":
             print ("" , "Consulta de viaturas" , "  Todas as viaturas (T)" , "  Por matrícula (M)" , sep = "\n")
             consulta_viatura = input ("Escolha uma opção: ")
@@ -57,4 +60,14 @@ while True:
             while consulta_viatura != "t" and consulta_viatura != "m":
                 consulta_viatura = input ("Opção inválida. Escolha uma opção: ")
                 consulta_viatura = consulta_viatura.lower()
-                
+            if consulta_viatura == "t":
+                for x in range(len(veiculos)):
+                    print ("Matrícula: " , veiculos[x]["matricula"] , "\nMarca: " , veiculos[x]["marca"] , "\nModelo" , veiculos[x]["modelo"] , "\nTipo de veículo: " , veiculos[x]["tipo de veiculo"] , sep = "")
+            if consulta_viatura == "m":
+                matr = input ("Insira a matrícula a procurar: ")
+                for x in range(len(veiculos)):
+                    if matr == veiculos[x]["matricula"]:
+                        print ("Matrícula: " , veiculos[x]["matricula"] , "\nMarca: " , veiculos[x]["marca"] , "\nModelo" , veiculos[x]["modelo"] , "\nTipo de veículo: " , veiculos[x]["tipo de veiculo"] , sep = "")
+                        continue
+                if matr != veiculos[-1]["matricula"]:
+                    print ("Não foi encontrada nenhuma viatura com a matrícula indicada.")
