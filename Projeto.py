@@ -14,6 +14,7 @@ if pedido == "sim":
 
 # Menu principal
 while True:
+    ver = 0
     print ("" , "MENU PRINCIPAL" , "  Gestão de Viaturas (V)" , "  Gestão de Coimas (C)" , "  Guardar dados (G)" , "  Sair (S)" , sep = "\n")
     escolha_principal = input ("Escolha uma opção: ")
     escolha_principal = escolha_principal.lower()
@@ -62,12 +63,36 @@ while True:
                 consulta_viatura = consulta_viatura.lower()
             if consulta_viatura == "t":
                 for x in range(len(veiculos)):
-                    print ("Matrícula: " , veiculos[x]["matricula"] , "\nMarca: " , veiculos[x]["marca"] , "\nModelo" , veiculos[x]["modelo"] , "\nTipo de veículo: " , veiculos[x]["tipo de veiculo"] , sep = "")
+                    print ("\nMatrícula: " , veiculos[x]["matricula"] , "\nMarca: " , veiculos[x]["marca"] , "\nModelo" , veiculos[x]["modelo"] , "\nTipo de veículo: " , veiculos[x]["tipo de veiculo"] , sep = "")
             if consulta_viatura == "m":
                 matr = input ("Insira a matrícula a procurar: ")
                 for x in range(len(veiculos)):
                     if matr == veiculos[x]["matricula"]:
-                        print ("Matrícula: " , veiculos[x]["matricula"] , "\nMarca: " , veiculos[x]["marca"] , "\nModelo" , veiculos[x]["modelo"] , "\nTipo de veículo: " , veiculos[x]["tipo de veiculo"] , sep = "")
-                        continue
-                if matr != veiculos[-1]["matricula"]:
-                    print ("Não foi encontrada nenhuma viatura com a matrícula indicada.")
+                        print ("\nMatrícula: " , veiculos[x]["matricula"] , "\nMarca: " , veiculos[x]["marca"] , "\nModelo: " , veiculos[x]["modelo"] , "\nTipo de veículo: " , veiculos[x]["tipo de veiculo"] , sep = "")
+                        ver = 1
+                if ver != 1:
+                    print ("\nNão foi encontrada nenhuma viatura com a matrícula indicada.")
+        
+        # Eliminar viaturas
+        if escolha_viatura == "e":
+            matr = input ("Insira a matrícula a procurar: ")
+            for x in range(len(veiculos)):
+                if matr == veiculos[x]["matricula"]:
+                    veiculos.pop(x)
+                    print ("\nViatura eliminada com sucesso.")
+                    ver = 1
+            if ver != 1:
+                print ("\nNão foi encontrada nenhuma viatura com a matrícula indicada.")
+
+        # Voltar atrás
+        if escolha_viatura == "v":
+            continue
+    
+    # Menu gestão de coimas
+    if escolha_principal == "c":
+        print ("" , "Gestão de coimas" , "  Adicionar nova coima (A)" , "  Consultar coimas (C)" , "  Eliminar coimas (E)" , "  Voltar atrás (V)" , sep = "\n")
+
+
+    # Opção sair
+    if escolha_principal == "s":
+        break
