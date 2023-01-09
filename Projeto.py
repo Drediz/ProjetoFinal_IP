@@ -1,5 +1,6 @@
 # Legalmente existem diversos tipos de veículos, no entanto, para o contexto do problema, só se enquadram 6 deles
 veiculos = list()
+coimas = list()
 
 # Restaurar dados anteriores
 pedido = input ("Pretende restaurar dados de uma utilização anterior (sim/não)?\n")
@@ -24,7 +25,7 @@ while True:
     
     # Menu gestão de viaturas
     if escolha_principal == "v":
-        print ("" , "Gestão de viaturas" , "  Adicionar nova viatura (A)" , "  Consultar viaturas (C)" , "  Eliminar viaturas (E)" , "  Voltar atrás (V)" , sep = "\n")
+        print ("" , "GESTÃO DE VIATURAS" , "  Adicionar nova viatura (A)" , "  Consultar viaturas (C)" , "  Eliminar viaturas (E)" , "  Voltar atrás (V)" , sep = "\n")
         escolha_viatura = input ("Escolha uma opção: ")
         escolha_viatura = escolha_viatura.lower()
         while escolha_viatura != "a" and escolha_viatura != "c" and escolha_viatura != "e" and escolha_viatura != "v":
@@ -90,7 +91,23 @@ while True:
     
     # Menu gestão de coimas
     if escolha_principal == "c":
-        print ("" , "Gestão de coimas" , "  Adicionar nova coima (A)" , "  Consultar coimas (C)" , "  Eliminar coimas (E)" , "  Voltar atrás (V)" , sep = "\n")
+        print ("" , "GESTÃO DE COIMAS" , "  Adicionar nova coima (A)" , "  Consultar coimas (C)" , "  Eliminar coimas (E)" , "  Voltar atrás (V)" , sep = "\n")
+        escolha_coima = input ("Escolha uma opção: ")
+        escolha_coima = escolha_coima.lower()
+        while escolha_coima != "a" and escolha_coima != "c" and escolha_coima != "e" and escolha_coima != "v":
+            escolha_coima = input ("Opção inválida. Escolha uma opção: ")
+            escolha_coima = escolha_coima.lower()
+        
+        # Adicionar uma nova coima
+        if escolha_coima == "a":
+            print ("")
+            idc = input ("Insira o ID da coima: ")
+            matr = input ("Insira a matrícula do veículo multado: ")
+            nome_estr = input ("Insira o modelo do veículo: ")
+            tipo_estr = input ("Insira o tipo de veículo: ")
+            vel_det = input ("Insira a velocidade detetada do veículo: ")
+            lim_vel = input ("Insira o limite de velocidade permitido na estrada em questão: ")
+            data = input ("Insira a data da infração: ")
 
 
     # Opção sair
