@@ -105,10 +105,11 @@ while True:
             matr = input ("Insira a matrícula do veículo multado: ")
             nome_estr = input ("Insira o modelo do veículo: ")
             tipo_estr = input ("Insira o tipo de veículo: ")
-            vel_det = input ("Insira a velocidade detetada do veículo: ")
-            lim_vel = input ("Insira o limite de velocidade permitido na estrada em questão: ")
+            vel_det = float (input ("Insira a velocidade detetada do veículo: "))
+            lim_vel = int (input ("Insira o limite de velocidade permitido na estrada em questão: "))
             data = input ("Insira a data da infração: ")
-
+            dif_vel = vel_det-lim_vel
+            
 
     # Opção sair
     if escolha_principal == "s":
