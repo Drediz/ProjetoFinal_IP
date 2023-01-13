@@ -163,7 +163,19 @@ while True:
             
             c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "dvel":dif_vel , "tipoestrada":tipo_estr , "gravidade":gravidade , "tipoveiculo":tipo_veic }
             coimas.append(c)
-            # Falta verificar se existe outra coima para aumentar gravidade
+            
+            # acabar
+            for x in range(len(coimas)):
+                if matr == coimas[x]["matricula"] and ver != 1:
+                    if gravidade == "leve":
+                        gravidade == "grave"
+                        ver = 1
+                    if gravidade == "grave":
+                        gravidade == "muitograve"
+                        ver = 1
+                    if gravidade == "muitograve":
+                        gravidade == "crime"
+                        ver = 1
         
         # Consultar coimas
         if escolha_coima == "c":
