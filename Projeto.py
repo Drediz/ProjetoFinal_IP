@@ -106,16 +106,10 @@ while True:
         # Adicionar uma nova coima
         if escolha_coima == "a":
             print ("")
+            data = input ("Insira a data da infração: ")
+            hora = input ("Insira a hora da infração: ")
             idc = input ("Insira o ID da coima: ")
             matr = input ("Insira a matrícula do veículo multado: ")
-
-            print ("Insira o tipo de veículo dentre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
-            tipo_veic = input ()
-            tipo_veic = tipo_veic.lower()
-            while tipo_veic != "lp" and tipo_veic != "lm" and tipo_veic != "pm":
-                print ("Resposta inválida. Insira o tipo de veículo entre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
-                tipo_veic = input ()
-                tipo_veic = tipo_veic.lower()
             
             nome_estr = input ("Insira o nome da estrada: ")
             print ("Insira o tipo de estrada entre as seguintes opções." , "  Dentro da localidade(L)" , "  Fora da localidade(F)" , "  Vias reservadas(R)" , "  Auto-estradas(A)" , sep = "\n")
@@ -125,6 +119,14 @@ while True:
                 print ("Resposta inválida. Insira o tipo de estrada entre as seguintes opções." , "  Dentro da localidade(L)" , "  Fora da localidade(F)" , "  Vias reservadas(R)" , "  Auto-estradas(A)" , sep = "\n")
                 tipo_estr = input ()
                 tipo_estr = tipo_estr.lower()
+            
+            print ("Insira o tipo de veículo dentre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
+            tipo_veic = input ()
+            tipo_veic = tipo_veic.lower()
+            while tipo_veic != "lp" and tipo_veic != "lm" and tipo_veic != "pm":
+                print ("Resposta inválida. Insira o tipo de veículo entre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
+                tipo_veic = input ()
+                tipo_veic = tipo_veic.lower()
             
             if tipo_estr == "l":
                 lim_vel = 50
@@ -149,8 +151,6 @@ while True:
                     lim_vel = 90
             
             vel_det = float (input ("Insira a velocidade detetada do veículo (km/h): "))
-            data = input ("Insira a data da infração: ")
-            hora = input ("Insira a hora da infração: ")
             dif_vel = vel_det-lim_vel
             
             if tipo_veic == "lp" or tipo_veic == "lm":
@@ -160,7 +160,7 @@ while True:
                     if 20 <= dif_vel < 40:
                         gravidade = "grave"
                     if 40 <= dif_vel < 60:
-                        gravidade = "muitograve"
+                        gravidade = "muito grave"
                     if dif_vel >= 60:
                         gravidade = "crime"
                 if tipo_estr == "f" or tipo_estr == "r" or tipo_estr == "a":
@@ -169,7 +169,7 @@ while True:
                     if 30 <= dif_vel < 60:
                         gravidade = "grave"
                     if 60 <= dif_vel < 80:
-                        gravidade = "muitograve"
+                        gravidade = "muito grave"
                     if dif_vel >= 80:
                         gravidade = "crime"
             if tipo_veic == "pm":
@@ -179,7 +179,7 @@ while True:
                     if 10 <= dif_vel < 20:
                         gravidade = "grave"
                     if 20 <= dif_vel < 40:
-                        gravidade = "muitograve"
+                        gravidade = "muito grave"
                     if dif_vel >= 40:
                         gravidade = "crime"
                 if tipo_estr == "f" or tipo_estr == "r" or tipo_estr == "a":
@@ -188,7 +188,7 @@ while True:
                     if 20 <= dif_vel < 40:
                         gravidade = "grave"
                     if 40 <= dif_vel < 60:
-                        gravidade = "muitograve"
+                        gravidade = "muito grave"
                     if dif_vel >= 60:
                         gravidade = "crime"
 
@@ -198,63 +198,66 @@ while True:
                         gravidade == "grave"
                         ver = 1
                     if gravidade == "grave":
-                        gravidade == "muitograve"
+                        gravidade == "muito grave"
                         ver = 1
-                    if gravidade == "muitograve":
+                    if gravidade == "muito grave":
                         gravidade == "crime"
                         ver = 1
         
-            c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "tipoestrada":tipo_estr , "tipoveiculo":tipo_veic , "dvel":dif_vel , "gravidade":gravidade}
+            c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "nomeestrada":nome_estr , "tipoestrada":tipo_estr , "tipoveiculo":tipo_veic , "dvel":dif_vel , "gravidade":gravidade}
             coimas.append(c)
 
         # Consultar coimas
         if escolha_coima == "c":
-            print ("" , "Consulta de coimas" , "  Todas as coimas (T)" , "  Por matrícula (M)" , "  Por ID de coima (I)", "  Por tipo de veículo (V)", "  Por tipo de coima (C)" ,sep = "\n")
+            print ("" , "Consulta de coimas" , "  Todas as coimas (T)" , "  Por matrícula (M)" , "  Por ID de coima (I)", "  Por tipo de veículo (V)", "  Por gravidade de coima (C)" , "Mensais em um ano expecífico (A)" , sep = "\n")
             consulta_coima = input ("Escolha uma opção: ")
             consulta_coima = consulta_coima.lower()
-            while consulta_coima != "t" and consulta_coima != "m" and consulta_coima != "i" and consulta_coima != "v" and consulta_coima != "c":
+            while consulta_coima != "t" and consulta_coima != "m" and consulta_coima != "i" and consulta_coima != "v" and consulta_coima != "c" and consulta_coima != "a":
                 consulta_coima = input ("Opção inválida. Escolha uma opção: ")
                 consulta_coima = consulta_coima.lower()
 
             if consulta_coima == "t":
                 for x in range(len(coimas)):
-                    print ("\nData: " , coimas[x]["data"] , "\nHora: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
+                    print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
 
             if consulta_coima == "m":
-                matr = input ("Insira a matrícula a procurar: ") # decidir se apresentar mais dados das coimas
+                matr = input ("Insira a matrícula a procurar: ")
                 for x in range(len(coimas)):
                     if matr == coimas[x]["matricula"]:
-                        print ("\nData: " , coimas[x]["data"] , "\nHora: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
+                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
                         ver = 1
                 if ver != 1:
-                    print ("\nNão foi encontrada nenhuma viatura com a matrícula indicada.")
+                    print ("\nNão foi encontrada nenhuma coima com a matrícula indicada.")
 
             if consulta_coima == "i":
                 idc= input("Insira o ID a procurar: ")
                 for x in range(len(coimas)):
-                    if idc==coimas[x]["idcoima"]:
-                        print ("\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nData da coima: " , coimas[x]["data"], sep = "")
+                    if idc == coimas[x]["idcoima"]:
+                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
                         ver = 1
                 if ver != 1:
-                    print ("\nNão foi encontrada nenhuma viatura com o ID indicado.")
+                    print ("\nNão foi encontrada nenhuma coima com o ID indicado.")
 
             if consulta_coima == "v":
                 tipo_veic= input ("Insira o tipo de veículo: ")
                 for x in range(len(coimas)):
                     if tipo_veic==coimas[x]["tipoveiculo"]:
-                        print ("\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nData da coima: " , coimas[x]["data"], sep = "")
+                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
                         ver = 1
                 if ver != 1:
-                    print ("\nNão foi encontrada nenhuma viatura do tipo indicado.")
+                    print ("\nNão foi encontrada nenhuma coima com o tipo de veículo indicado.")
 
             if consulta_coima == "c":
                 consulta_gravidade = input("Insira a gravidade a procurar: ")
                 for x in range(len(coimas)):
                     if consulta_gravidade==coimas[x]["gravidade"]:
-                        print ("\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nData da coima: " , coimas[x]["data"], sep = "")
+                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nMatrícula: " , coimas[x]["matricula"] , sep = "")
                         ver = 1
                 if ver != 1:
-                   print ("\nNão foi encontrada nenhuma viatura com coimas da gravidade indicada.") 
+                   print ("\nNão foi encontrada nenhuma coimas da gravidade indicada.") 
+            
+            if consulta_coima == "a":
+                ano = int ("Insira o ano a apresentar: ")
 
     # Opção Guardar
     
