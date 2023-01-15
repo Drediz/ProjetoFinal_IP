@@ -191,10 +191,7 @@ while True:
                         gravidade = "muitograve"
                     if dif_vel >= 60:
                         gravidade = "crime"
-            
-            c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "dvel":dif_vel , "tipoestrada":tipo_estr , "gravidade":gravidade , "tipoveiculo":tipo_veic }
-            coimas.append(c)
-            
+
             for x in range(len(coimas)):
                 if matr == coimas[x]["matricula"] and ver != 1:
                     if gravidade == "leve":
@@ -207,6 +204,9 @@ while True:
                         gravidade == "crime"
                         ver = 1
         
+            c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "tipoestrada":tipo_estr , "tipoveiculo":tipo_veic , "dvel":dif_vel , "gravidade":gravidade}
+            coimas.append(c)
+
         # Consultar coimas
         if escolha_coima == "c":
             print ("" , "Consulta de coimas" , "  Todas as coimas (T)" , "  Por matrícula (M)" , "  Por ID de coima (I)", "  Por tipo de veículo (V)", "  Por tipo de coima (C)" ,sep = "\n")
