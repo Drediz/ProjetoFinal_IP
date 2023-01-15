@@ -109,20 +109,20 @@ while True:
             idc = input ("Insira o ID da coima: ")
             matr = input ("Insira a matrícula do veículo multado: ")
 
-            print ("Insira o tipo de veículo dentre as seguintes opções." , "Ligeiro de passageiros (LP)" , "Ligeiro de mercadorias (LM)" , "Pesado de mercadorias (PM)" , sep = "\n")
+            print ("Insira o tipo de veículo dentre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
             tipo_veic = input ()
             tipo_veic = tipo_veic.lower()
             while tipo_veic != "lp" and tipo_veic != "lm" and tipo_veic != "pm":
-                print ("Resposta inválida. Insira o tipo de veículo entre as seguintes opções." , "Ligeiro de passageiros (LP)" , "Ligeiro de mercadorias (LM)" , "Pesado de mercadorias (PM)" , sep = "\n")
+                print ("Resposta inválida. Insira o tipo de veículo entre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
                 tipo_veic = input ()
                 tipo_veic = tipo_veic.lower()
             
             nome_estr = input ("Insira o nome da estrada: ")
-            print ("Insira o tipo de estrada entre as seguintes opções." , " Dentro da localidade(L)" , " Fora da localidade(F)" , " Vias reservadas(R)" , " Auto-estradas(A)" , sep = "\n")
+            print ("Insira o tipo de estrada entre as seguintes opções." , "  Dentro da localidade(L)" , "  Fora da localidade(F)" , "  Vias reservadas(R)" , "  Auto-estradas(A)" , sep = "\n")
             tipo_estr = input ()
             tipo_estr = tipo_estr.lower()
             while tipo_estr != "l" and tipo_estr != "f" and tipo_estr != "r" and tipo_estr != "a":
-                print ("Resposta inválida. Insira o tipo de estrada entre as seguintes opções." , " Dentro da localidade(L)" , " Fora da localidade(F)" , " Vias reservadas(R)" , " Auto-estradas(A)" , sep = "\n")
+                print ("Resposta inválida. Insira o tipo de estrada entre as seguintes opções." , "  Dentro da localidade(L)" , "  Fora da localidade(F)" , "  Vias reservadas(R)" , "  Auto-estradas(A)" , sep = "\n")
                 tipo_estr = input ()
                 tipo_estr = tipo_estr.lower()
             
@@ -148,23 +148,53 @@ while True:
                 if tipo_veic == "pm":
                     lim_vel = 90
             
-            vel_det = float (input ("Insira a velocidade detetada do veículo(km/h): "))
+            vel_det = float (input ("Insira a velocidade detetada do veículo (km/h): "))
             data = input ("Insira a data da infração: ")
             hora = input ("Insira a hora da infração: ")
             dif_vel = vel_det-lim_vel
-
-            if dif_vel <= 20:
-                gravidade = "leve"
-            if 20 <= dif_vel < 40:
-                gravidade = "grave"
-            if dif_vel >= 40:
-                gravidade = "muitograve"
-            ## COMPLETAR
+            
+            if tipo_veic == "lp" or tipo_veic == "lm":
+                if tipo_estr == "l":
+                    if dif_vel <= 20:
+                        gravidade = "leve"
+                    if 20 <= dif_vel < 40:
+                        gravidade = "grave"
+                    if 40 <= dif_vel < 60:
+                        gravidade = "muitograve"
+                    if dif_vel >= 60:
+                        gravidade = "crime"
+                if tipo_estr == "f" or tipo_estr == "r" or tipo_estr == "a":
+                    if dif_vel <= 30:
+                        gravidade = "leve"
+                    if 30 <= dif_vel < 60:
+                        gravidade = "grave"
+                    if 60 <= dif_vel < 80:
+                        gravidade = "muitograve"
+                    if dif_vel >= 80:
+                        gravidade = "crime"
+            if tipo_veic == "pm":
+                if tipo_estr == "l":
+                    if dif_vel <= 10:
+                        gravidade = "leve"
+                    if 10 <= dif_vel < 20:
+                        gravidade = "grave"
+                    if 20 <= dif_vel < 40:
+                        gravidade = "muitograve"
+                    if dif_vel >= 40:
+                        gravidade = "crime"
+                if tipo_estr == "f" or tipo_estr == "r" or tipo_estr == "a":
+                    if dif_vel <= 20:
+                        gravidade = "leve"
+                    if 20 <= dif_vel < 40:
+                        gravidade = "grave"
+                    if 40 <= dif_vel < 60:
+                        gravidade = "muitograve"
+                    if dif_vel >= 60:
+                        gravidade = "crime"
             
             c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "dvel":dif_vel , "tipoestrada":tipo_estr , "gravidade":gravidade , "tipoveiculo":tipo_veic }
             coimas.append(c)
             
-            # acabar
             for x in range(len(coimas)):
                 if matr == coimas[x]["matricula"] and ver != 1:
                     if gravidade == "leve":
