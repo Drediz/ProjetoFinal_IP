@@ -256,6 +256,8 @@ while True:
                 if ver != 1:
                    print ("\nNão foi encontrada nenhuma viatura com coimas da gravidade indicada.") 
 
+    # Opção Guardar
+    
 
     # Opção sair
     if escolha_principal == "s":
