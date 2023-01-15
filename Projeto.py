@@ -218,13 +218,13 @@ while True:
 
             if consulta_coima == "t":
                 for x in range(len(coimas)):
-                    print ("\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , sep = "") # decidir se apresentar mais dados das coimas
+                    print ("\nData: " , coimas[x]["data"] , "\nHora: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
 
             if consulta_coima == "m":
-                matr = input ("Insira a matrícula a procurar: ")
+                matr = input ("Insira a matrícula a procurar: ") # decidir se apresentar mais dados das coimas
                 for x in range(len(coimas)):
                     if matr == coimas[x]["matricula"]:
-                        print ("\nID da coima: " , coimas[x]["idcoima"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nData da coima: " , coimas[x]["data"], sep = "")
+                        print ("\nData: " , coimas[x]["data"] , "\nHora: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
                         ver = 1
                 if ver != 1:
                     print ("\nNão foi encontrada nenhuma viatura com a matrícula indicada.")
