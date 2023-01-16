@@ -16,6 +16,8 @@ if pedido == "sim":
 ##### Menu principal
 while True:
     ver = 0
+    quantidade_por_veiculo = 0
+    quantidade_por_gravidade = 0
     print ("" , "MENU PRINCIPAL" , "  Gestão de Viaturas (V)" , "  Gestão de Coimas (C)" , "  Guardar dados (G)" , "  Sair (S)" , sep = "\n")
     escolha_principal = input ("Escolha uma opção: ")
     escolha_principal = escolha_principal.lower()
@@ -103,7 +105,7 @@ while True:
             escolha_coima = input ("Opção inválida. Escolha uma opção: ")
             escolha_coima = escolha_coima.lower()
         
-        ##### Adicionar uma nova coima
+        # Adicionar uma nova coima
         if escolha_coima == "a":
             print ("")
             data = input ("Insira a data da infração: ")
@@ -116,7 +118,7 @@ while True:
             tipo_estr = input ()
             tipo_estr = tipo_estr.lower()
             while tipo_estr != "l" and tipo_estr != "f" and tipo_estr != "r" and tipo_estr != "a":
-                print ("Resposta inválida. Insira o tipo de estrada entre as seguintes opções." , "  Dentro da localidade(L)" , "  Fora da localidade(F)" , "  Vias reservadas(R)" , "  Auto-estradas(A)" , sep = "\n")
+                print ("Opção inválida. Insira o tipo de estrada entre as seguintes opções." , "  Dentro da localidade(L)" , "  Fora da localidade(F)" , "  Vias reservadas(R)" , "  Auto-estradas(A)" , sep = "\n")
                 tipo_estr = input ()
                 tipo_estr = tipo_estr.lower()
             
@@ -124,7 +126,7 @@ while True:
             tipo_veic = input ()
             tipo_veic = tipo_veic.lower()
             while tipo_veic != "lp" and tipo_veic != "lm" and tipo_veic != "pm":
-                print ("Resposta inválida. Insira o tipo de veículo entre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
+                print ("Opção inválida. Insira o tipo de veículo entre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
                 tipo_veic = input ()
                 tipo_veic = tipo_veic.lower()
             
@@ -207,7 +209,7 @@ while True:
             c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "nomeestrada":nome_estr , "tipoestrada":tipo_estr , "tipoveiculo":tipo_veic , "dvel":dif_vel , "gravidade":gravidade}
             coimas.append(c)
 
-        ##### Consultar coimas
+        # Consultar coimas
         if escolha_coima == "c":
             print ("" , "Consulta de coimas" , "  Todas as coimas (T)" , "  Por matrícula (M)" , "  Por ID de coima (I)", "  Por tipo de veículo (V)", "  Por gravidade de coima (C)" , "Mensais em um ano expecífico (A)" , sep = "\n")
             consulta_coima = input ("Escolha uma opção: ")
@@ -240,26 +242,77 @@ while True:
 
             if consulta_coima == "v":
                 tipo_veic= input ("Insira o tipo de veículo: ")
-                for x in range(len(coimas)):
-                    if tipo_veic==coimas[x]["tipoveiculo"]:
-                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
-                        ver = 1
-                if ver != 1:
-                    print ("\nNão foi encontrada nenhuma coima com o tipo de veículo indicado.")
+                tipo_veic = tipo_veic.lower()
+                while tipo_veic != "lp" and tipo_veic != "lm" and tipo_veic != "pm":
+                    print ("Resposta inválida. Insira o tipo de veículo entre as seguintes opções." , "  Ligeiro de passageiros (LP)" , "  Ligeiro de mercadorias (LM)" , "  Pesado de mercadorias (PM)" , sep = "\n")
+                    tipo_veic = input ()
+                    tipo_veic = tipo_veic.lower()
+                print ("" , "  Lista (L)" , "  Quantidade (Q)" , sep = "\n")
+                escolha_consulta_veiculo = input ("Escolha uma opção: ")
+                escolha_consulta_veiculo = escolha_consulta_veiculo.lower()
+                while escolha_consulta_veiculo != "l" and escolha_consulta_veiculo != "q":
+                    escolha_consulta_veiculo = input ("Opção inválida. Escolha uma opção: ")
+                    escolha_consulta_veiculo = escolha_consulta_veiculo.lower()
+                if escolha_consulta_veiculo == "l":
+                    for x in range(len(coimas)):
+                        if tipo_veic == coimas[x]["tipoveiculo"]:
+                            print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
+                            ver = 1
+                    if ver != 1:
+                        print ("\nNão foi encontrada nenhuma coima com o tipo de veículo indicado.")
+                if escolha_consulta_veiculo == "q":
+                    for x in range(len(coimas)):
+                        if tipo_veic == coimas[x]["tipoveiculo"]:
+                            quantidade_por_veiculo += 1
+                            ver = 1
+                    if ver == 1:
+                        print ("\nHá" , quantidade_por_veiculo , "coimas associadas ao tipo de veículo indicado.")
+                    if ver != 1:
+                        print ("\nNão foi encontrada nenhuma coima com o tipo de veículo indicado.")
 
             if consulta_coima == "c":
-                consulta_gravidade = input("Insira a gravidade a procurar: ")
-                for x in range(len(coimas)):
-                    if consulta_gravidade==coimas[x]["gravidade"]:
-                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nMatrícula: " , coimas[x]["matricula"] , sep = "")
-                        ver = 1
-                if ver != 1:
-                   print ("\nNão foi encontrada nenhuma coimas da gravidade indicada.") 
+                print ("" , "  Leve (L)" , "  Grave (G)" , "  Muito Grave (MG)" , "Crime (C)" , sep = "\n")
+                consulta_gravidade = input ("Insira a gravidade a procurar: ")
+                consulta_gravidade = consulta_gravidade.lower()
+                while consulta_gravidade != "l" and consulta_gravidade != "g" and consulta_gravidade != "mg" and consulta_gravidade != "c":
+                    consulta_gravidade = input ("Opção inválida. Insira a gravidade a procurar: ")
+                    consulta_gravidade = consulta_gravidade.lower()
+                while consulta_gravidade == "l" and consulta_gravidade == "g" and consulta_gravidade == "mg" and consulta_gravidade == "c":
+                    if consulta_gravidade == "l":
+                        consulta_gravidade == "leve"
+                    if consulta_gravidade == "g":
+                        consulta_gravidade == "grave"
+                    if consulta_gravidade == "mg":
+                        consulta_gravidade == "muito grave"
+                    if consulta_gravidade == "c":
+                        consulta_gravidade == "crime"
+                print ("" , "  Lista (L)" , "  Quantidade (Q)" , sep = "\n")
+                escolha_consulta_gravidade = input ("Escolha uma opção: ")
+                escolha_consulta_gravidade = escolha_consulta_gravidade.lower()
+                while escolha_consulta_gravidade != "l" and escolha_consulta_gravidade != "q":
+                    escolha_consulta_gravidade = input ("Opção inválida. Escolha uma opção: ")
+                    escolha_consulta_gravidade = escolha_consulta_gravidade.lower()
+                if escolha_consulta_gravidade == "l":
+                    for x in range(len(coimas)):
+                        if gravidade == coimas[x]["gravidade"]:
+                            print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nMatrícula: " , coimas[x]["matricula"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
+                            ver = 1
+                    if ver != 1:
+                        print ("\nNão foi encontrada nenhuma coima com a gravidade indicada.")
+                if escolha_consulta_gravidade == "q":
+                    for x in range(len(coimas)):
+                        if gravidade == coimas[x]["gravidade"]:
+                            quantidade_por_gravidade += 1
+                            ver = 1
+                    if ver == 1:
+                        print ("\nHá" , quantidade_por_gravidade , "coimas associadas à gravidade indicada.")
+                    if ver != 1:
+                        print ("\nNão foi encontrada nenhuma coima com a gravidade indicada.")
             
             if consulta_coima == "a":
                 ano = int ("Insira o ano a apresentar: ")
 
-        ##### Opção Eliminar
+        # Opção Eliminar
         if escolha_coima == "e":
             print ("" , "Consulta de coimas" , "  Por matrícula (M)" , "  Por ID de coima (I)" , sep = "\n")
             eliminar_coima = input ("Escolha uma opção: ")
@@ -269,6 +322,10 @@ while True:
                 eliminar_coima = eliminar_coima.lower()
 
                 matr = input ("Insira a matrícula associada à coima a eliminar: ")
+        
+        # Voltar atrás
+        if escolha_coima == "v":
+            continue
     
     ##### Opção Guardar
     #if escolha_principal == "g":
