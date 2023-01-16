@@ -1,8 +1,8 @@
-# Legalmente existem diversos tipos de veículos, no entanto, para o contexto do problema, só se enquadram 6 deles
+##### Legalmente existem diversos tipos de veículos, no entanto, para o contexto do problema, só se enquadram 6 deles
 veiculos = list()
 coimas = list()
 
-# Restaurar dados anteriores
+##### Restaurar dados anteriores
 pedido = input ("Pretende restaurar dados de uma utilização anterior (sim/não)?\n")
 pedido = pedido.lower()
 while pedido != "sim" and pedido != "não":
@@ -11,9 +11,9 @@ while pedido != "sim" and pedido != "não":
 
 if pedido == "sim":
     fich = input ("Qual o nome do ficheiro que pretende abrir (com extensão)?\n")
-### COMPLETAR
+##### COMPLETAR
 
-# Menu principal
+##### Menu principal
 while True:
     ver = 0
     print ("" , "MENU PRINCIPAL" , "  Gestão de Viaturas (V)" , "  Gestão de Coimas (C)" , "  Guardar dados (G)" , "  Sair (S)" , sep = "\n")
@@ -23,7 +23,7 @@ while True:
         escolha_principal = input ("Opção inválida. Escolha uma opção: ")
         escolha_principal = escolha_principal.lower()
     
-    # Menu gestão de viaturas
+    ##### Menu gestão de viaturas
     if escolha_principal == "v":
         print ("" , "GESTÃO DE VIATURAS" , "  Adicionar nova viatura (A)" , "  Consultar viaturas (C)" , "  Eliminar viaturas (E)" , "  Voltar atrás (V)" , sep = "\n")
         escolha_viatura = input ("Escolha uma opção: ")
@@ -81,7 +81,7 @@ while True:
         
         # Eliminar viaturas
         if escolha_viatura == "e":
-            matr = input ("Insira a matrícula a procurar: ")
+            matr = input ("Insira a matrícula da viatura a eliminar: ")
             for x in range(len(veiculos)):
                 if matr == veiculos[x]["matricula"]:
                     veiculos.pop(x)
@@ -94,7 +94,7 @@ while True:
         if escolha_viatura == "v":
             continue
     
-    # Menu gestão de coimas
+    ##### Menu gestão de coimas
     if escolha_principal == "c":
         print ("" , "GESTÃO DE COIMAS" , "  Adicionar nova coima (A)" , "  Consultar coimas (C)" , "  Eliminar coimas (E)" , "  Voltar atrás (V)" , sep = "\n")
         escolha_coima = input ("Escolha uma opção: ")
@@ -103,7 +103,7 @@ while True:
             escolha_coima = input ("Opção inválida. Escolha uma opção: ")
             escolha_coima = escolha_coima.lower()
         
-        # Adicionar uma nova coima
+        ##### Adicionar uma nova coima
         if escolha_coima == "a":
             print ("")
             data = input ("Insira a data da infração: ")
@@ -207,7 +207,7 @@ while True:
             c = {"data":data , "hora":hora , "idcoima":idc , "matricula":matr , "nomeestrada":nome_estr , "tipoestrada":tipo_estr , "tipoveiculo":tipo_veic , "dvel":dif_vel , "gravidade":gravidade}
             coimas.append(c)
 
-        # Consultar coimas
+        ##### Consultar coimas
         if escolha_coima == "c":
             print ("" , "Consulta de coimas" , "  Todas as coimas (T)" , "  Por matrícula (M)" , "  Por ID de coima (I)", "  Por tipo de veículo (V)", "  Por gravidade de coima (C)" , "Mensais em um ano expecífico (A)" , sep = "\n")
             consulta_coima = input ("Escolha uma opção: ")
@@ -259,9 +259,21 @@ while True:
             if consulta_coima == "a":
                 ano = int ("Insira o ano a apresentar: ")
 
-    # Opção Guardar
-    
+        ##### Opção Eliminar
+        if escolha_coima == "e":
+            print ("" , "Consulta de coimas" , "  Por matrícula (M)" , "  Por ID de coima (I)" , sep = "\n")
+            eliminar_coima = input ("Escolha uma opção: ")
+            eliminar_coima = eliminar_coima.lower()
+            while eliminar_coima != "m" and eliminar_coima != "i":
+                eliminar_coima = input ("Escolha uma opção: ")
+                eliminar_coima = eliminar_coima.lower()
 
-    # Opção sair
+                matr = input ("Insira a matrícula associada à coima a eliminar: ")
+    
+    ##### Opção Guardar
+    #if escolha_principal == "g":
+
+
+    ##### Opção sair
     if escolha_principal == "s":
         break
