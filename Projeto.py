@@ -1,4 +1,5 @@
 ##### Legalmente existem diversos tipos de veículos, no entanto, para o contexto do problema, só se enquadram 6 deles
+import pickle
 veiculos = list()
 coimas = list()
 
@@ -10,14 +11,19 @@ while pedido != "sim" and pedido != "não":
     pedido = pedido.lower()
 
 if pedido == "sim":
-    fich = input ("Qual o nome do ficheiro que pretende abrir (com extensão)?\n")
-##### COMPLETAR
+    f = input ("Qual o nome do ficheiro que pretende abrir (com extensão)?\n")
+    fich = open (f , "rb")
+    veiculos = pickle.load(fich)
+    coimas = pickle.load(fich)
+    fich.close()
 
 ##### Menu principal
 while True:
     ver = 0
     quantidade_por_veiculo = 0
     quantidade_por_gravidade = 0
+    contagem_ano = 0
+
     print ("" , "MENU PRINCIPAL" , "  Gestão de Viaturas (V)" , "  Gestão de Coimas (C)" , "  Guardar dados (G)" , "  Sair (S)" , sep = "\n")
     escolha_principal = input ("Escolha uma opção: ")
     escolha_principal = escolha_principal.lower()
@@ -108,7 +114,9 @@ while True:
         # Adicionar uma nova coima
         if escolha_coima == "a":
             print ("")
-            data = input ("Insira a data da infração: ")
+            data = input ("Insira a data da infração (dd/mm/aaaa): ")
+            while data [2] != "/" or data [5] != "/" or len(data) != 10:
+                data = input ("Formato de data inválido. Insira a data da infração (dd/mm/aaaa): ")
             hora = input ("Insira a hora da infração: ")
             idc = input ("Insira o ID da coima: ")
             matr = input ("Insira a matrícula do veículo multado: ")
@@ -310,26 +318,61 @@ while True:
                         print ("\nNão foi encontrada nenhuma coima com a gravidade indicada.")
             
             if consulta_coima == "a":
-                ano = int ("Insira o ano a apresentar: ")
+                ano = input ("Insira o ano a apresentar: ")
+                for x in range(len(coimas)):
+                    if ano == coimas[x]["data"[-4:]]:
+                        contagem_ano += 1
+                        ver = 1
+                    if ver != 1:
+                        print ("\nNão foi encontrada nenhuma coima no ano indicado.")
+                    if ver == 1:
+                        print ("Em" , ano , "foram cometidas uma média de" , contagem_ano/12 , "infrações por mês.")
 
         # Opção Eliminar
         if escolha_coima == "e":
-            print ("" , "Consulta de coimas" , "  Por matrícula (M)" , "  Por ID de coima (I)" , sep = "\n")
+            print ("" , "Eliminação de coimas" , "  Por matrícula (M)" , "  Por ID de coima (I)" , sep = "\n")
             eliminar_coima = input ("Escolha uma opção: ")
             eliminar_coima = eliminar_coima.lower()
             while eliminar_coima != "m" and eliminar_coima != "i":
                 eliminar_coima = input ("Escolha uma opção: ")
                 eliminar_coima = eliminar_coima.lower()
-
+            if eliminar_coima == "m":
                 matr = input ("Insira a matrícula associada à coima a eliminar: ")
+                for x in range(len(coimas)):
+                    if idc == coimas[x]["idcoima"]:
+                        print ("\nData da coima: " , coimas[x]["data"] , "\nHora da coima: " , coimas[x]["hora"] , "\nID da coima: " , coimas[x]["idcoima"] , "\nNome da estrada: " , coimas[x]["nomeestrada"] , "\nGravidade: " , coimas[x]["gravidade"] , sep = "")
+                        ver = 1
+                if ver != 1:
+                    print ("\nNão foi encontrada nenhuma coima com a matrícula indicada.")
+                if ver == 1:
+                    idc = input ("Insira o ID da coima a eliminar: ")
+                    for x in range(len(coimas)):
+                        if idc == coimas[x]["idcoima"]:
+                            coimas.pop(x)
+                            print ("\nCoima eliminada com sucesso.")
+                            ver = 1
+                        if ver != 1:
+                            print ("\nNão foi encontrada nenhuma viatura com a matrícula indicada.")
+            if eliminar_coima == "i":
+                idc = input ("Insira o ID da coima a eliminar: ")
+                for x in range(len(coimas)):
+                    if idc == coimas[x]["idcoima"]:
+                        coimas.pop(x)
+                        print ("\nCoima eliminada com sucesso.")
+                        ver = 1
+                    if ver != 1:
+                        print ("\nNão foi encontrada nenhuma viatura com a matrícula indicada.")
         
         # Voltar atrás
         if escolha_coima == "v":
             continue
     
     ##### Opção Guardar
-    #if escolha_principal == "g":
-
+    if escolha_principal == "g":
+        fich = open (f , "wb")
+        pickle.dump (veiculos , fich)
+        pickle.dump (coimas , fich)
+        fich.close()
 
     ##### Opção sair
     if escolha_principal == "s":
