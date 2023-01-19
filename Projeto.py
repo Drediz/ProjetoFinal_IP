@@ -369,6 +369,7 @@ while True:
     
     ##### Opção Guardar
     if escolha_principal == "g":
+        f = input ("Qual o nome do ficheiro que pretende abrir (com extensão)?\n")
         fich = open (f , "wb")
         pickle.dump (veiculos , fich)
         pickle.dump (coimas , fich)
